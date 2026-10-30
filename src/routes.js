@@ -1,7 +1,7 @@
 const express = require('express');
-const { pool } = require('../db');
-const { requireUser, requireInternal, validId } = require('../auth');
-const { createNotification } = require('../createNotification');
+const { pool } = require('./db');
+const { requireUser, requireInternal, validId } = require('./auth');
+const { createNotification } = require('./createNotification');
 
 const router = express.Router();
 
