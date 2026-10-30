@@ -29,6 +29,14 @@ function attachIo(io) {
       return res.status(500).json({ error: 'Failed to create notification' });
     }
   });
+
+  router.post('/internal/realtime', requireInternal, (req, res) => {
+    const { userId, event, payload } = req.body || {};
+    if (!validId(userId)) return res.status(400).json({ error: 'Invalid user id' });
+    if (event !== 'message') return res.status(400).json({ error: 'Unsupported event' });
+    io.to(`user:${userId}`).emit(event, payload);
+    return res.json({ success: true });
+  });
 }
 
 router.get('/api/notifications/:userId', requireUser, async (req, res) => {
